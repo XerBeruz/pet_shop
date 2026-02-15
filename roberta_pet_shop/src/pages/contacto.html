@@ -1,0 +1,40 @@
+<section class="page-section">
+    <div class="container">
+        <h1 class="section-title">Contáctanos</h1>
+
+        <div class="contact-container">
+            <form onsubmit="event.preventDefault(); alert('Gracias por tu mensaje. Te contactaremos pronto.');">
+                <div style="margin-bottom: 1rem;">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" placeholder="Tu nombre" required>
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label for="pet">Nombre de tu mascota</label>
+                    <input type="text" id="pet" placeholder="Nombre de tu peludo">
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label for="phone">Teléfono</label>
+                    <input type="tel" id="phone" placeholder="300 123 4567" required>
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label for="message">Mensaje</label>
+                    <textarea id="message" rows="4" placeholder="¿En qué podemos ayudarte?" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensaje</button>
+            </form>
+
+            <div style="margin-top: 3rem; text-align: center;">
+                <h3>Visítanos</h3>
+                <p>Cra 9 # 1n41 B/modelo, Popayán</p>
+                <div style="margin-top: 1rem;">
+                    <a href="https://instagram.com/Roberta_pet_shop" target="_blank" class="btn btn-outline">Síguenos en
+                        Instagram</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

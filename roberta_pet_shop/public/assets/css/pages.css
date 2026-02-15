@@ -1,0 +1,372 @@
+/* Pages Common */
+.page-section {
+    padding: var(--spacing-lg) 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+}
+
+/* Home - Hero */
+.hero {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-black);
+    /* Fallback */
+    color: var(--color-white);
+}
+
+.hero-slider,
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.4);
+    /* Darken images for text contrast */
+    z-index: 1;
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 6s ease;
+    transform: scale(1);
+    z-index: 0;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    transform: scale(1.05);
+    /* Subtle zoom effect */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    /* On top of overlay */
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-white);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-md);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Carousel Section */
+.carousel-section {
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+}
+
+.carousel-container {
+    overflow: hidden;
+    /* Mask the sliding content */
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Removed padding: 20px that caused alignment issues */
+    padding-bottom: 40px;
+    /* Reserve space for dots/shadows */
+}
+
+.carousel-track {
+    display: flex;
+    gap: 0;
+    /* Remove gap for easier calculation, handle spacing with padding on cards */
+    transition: transform 0.3s ease-in-out;
+    /* Faster transition for better responsiveness */
+}
+
+/* 3D FLIP CARD STYLES */
+.plan-card {
+    flex: 0 0 100%;
+    min-width: 100%;
+    /* Force full width preventing shrink */
+    /* Use padding to create the visual gap instead of flex-gap */
+    padding: 10px 20px;
+    /* Safe padding for content */
+    box-sizing: border-box;
+
+    background-color: transparent;
+    /* Transparent container */
+    height: 500px;
+    /* Increased height for better mobile fit */
+    perspective: 1000px;
+    /* 3D space */
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .plan-card {
+        flex: 0 0 33.333%;
+        /* 3 items exactly */
+    }
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+    box-shadow: var(--shadow-md);
+    border-radius: var(--radius-lg);
+}
+
+/* Hover Flip (Desktop) + Click Class (Mobile) */
+.plan-card:hover .card-inner,
+.plan-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Front Styling - Gradient Aesthetic */
+.card-front {
+    background: linear-gradient(135deg, var(--color-white) 0%, #f3f0ff 100%);
+    color: var(--color-text);
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--color-border);
+}
+
+/* Premium Gradient Borders/Accents */
+.card-front::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--color-secondary), var(--color-primary));
+}
+
+.card-front h3 {
+    font-size: 2rem;
+    background: linear-gradient(45deg, var(--color-text), var(--color-primary-dark));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: var(--spacing-sm);
+}
+
+.click-hint {
+    margin-top: var(--spacing-md);
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    opacity: 0.7;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-5px);
+    }
+
+    60% {
+        transform: translateY(-3px);
+    }
+}
+
+/* Back Styling - Info */
+.card-back {
+    background-color: var(--color-white);
+    transform: rotateY(180deg);
+    border: 1px solid var(--color-primary);
+    padding: var(--spacing-md);
+    justify-content: space-between;
+}
+
+.plan-header-back {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.plan-price {
+    font-size: 1.4rem;
+    color: var(--color-secondary);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+}
+
+.plan-features {
+    text-align: left;
+    font-size: 0.85rem;
+    flex-grow: 1;
+}
+
+.plan-features li {
+    margin-bottom: 6px;
+    padding-left: 18px;
+    position: relative;
+}
+
+.plan-features li::before {
+    content: "✓";
+    color: var(--color-primary);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Services Page */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+}
+
+/* Gallery - Masonry (CSS Columns) */
+.gallery-grid {
+    column-count: 1;
+    column-gap: var(--spacing-md);
+}
+
+@media (min-width: 576px) {
+    .gallery-grid {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 992px) {
+    .gallery-grid {
+        column-count: 3;
+    }
+}
+
+.gallery-item {
+    break-inside: avoid;
+    margin-bottom: var(--spacing-md);
+}
+
+.gallery-item img {
+    width: 100%;
+    border-radius: var(--radius-md);
+    transition: opacity 0.3s;
+}
+
+.gallery-item:hover img {
+    opacity: 0.9;
+}
+
+/* Contact Form */
+.contact-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--color-background-alt);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+}
+
+/* Carousel Navigation */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    color: var(--color-primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: var(--shadow-md);
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.carousel-arrow:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.carousel-arrow.prev {
+    left: 10px;
+}
+
+.carousel-arrow.next {
+    right: 10px;
+}
+
+@media (min-width: 768px) {
+
+    .carousel-arrow,
+    .carousel-dots {
+        display: none;
+    }
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-border);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.carousel-dot.active {
+    background: var(--color-primary);
+    transform: scale(1.2);
+}

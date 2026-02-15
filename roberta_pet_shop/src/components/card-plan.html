@@ -1,0 +1,29 @@
+<div class="plan-card" onclick="this.classList.toggle('flipped')">
+    <div class="card-inner">
+        <!-- Front Side -->
+        <div class="card-front">
+            <div class="card-front-content">
+                <h3>{{name}}</h3>
+                <p class="plan-focus">{{focus}}</p>
+                <span class="click-hint">Ver Detalles ↻</span>
+            </div>
+        </div>
+
+        <!-- Back Side -->
+        <div class="card-back">
+            <div class="plan-header-back">
+                <h3>{{name}}</h3>
+            </div>
+            <div class="plan-body">
+                <p class="plan-price">{{price}}</p>
+                <ul class="plan-features">
+                    {{features}}
+                </ul>
+                <div class="plan-action">
+                    <a href="https://wa.me/573225320613?text=Hola,%20quisiera%20agendar%20el%20plan%20{{name}}"
+                        target="_blank" class="btn btn-primary btn-sm" onclick="event.stopPropagation()">Agendar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
