@@ -1,0 +1,11 @@
+[build]
+  # Copiar src (páginas y componentes) dentro de public para el deploy
+  command = "cp -r src public/"
+  # Netlify debe publicar la carpeta public (ahí está index.html)
+  publish = "public"
+
+# Rutas como /servicios o /galeria (sin archivo físico) devuelven index.html para el router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
