@@ -63,19 +63,64 @@ export class Router {
     afterRender(routeKey) {
         // Re-attach listeners or scripts specific to pages
         if (routeKey === 'home') {
-            // Plans Carousel
             import('./carousel.js').then(module => {
                 const carousel = new module.Carousel();
                 carousel.init();
             });
-            // Hero Image Carousel
             import('./hero-carousel.js').then(module => {
                 const heroCarousel = new module.HeroCarousel();
                 heroCarousel.init();
             });
         }
 
+        if (routeKey === 'contacto') {
+            this.initContactForm();
+        }
+
         // Close mobile menu if open
         document.querySelector('.nav-list')?.classList.remove('active');
+    }
+
+    initContactForm() {
+        const form = document.getElementById('contact-form');
+        const feedback = document.getElementById('form-feedback');
+        if (!form || !feedback) return;
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            feedback.textContent = '';
+            feedback.removeAttribute('class');
+            feedback.setAttribute('class', 'form-feedback');
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando…';
+
+            const formData = new FormData(form);
+            const encoded = new URLSearchParams(formData).toString();
+
+            try {
+                const res = await fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: encoded
+                });
+                if (res.ok) {
+                    feedback.classList.add('form-feedback--success');
+                    feedback.textContent = 'Mensaje enviado correctamente. Te contactaremos pronto.';
+                    form.reset();
+                } else {
+                    feedback.classList.add('form-feedback--error');
+                    feedback.textContent = 'No se pudo enviar. Intenta de nuevo o escríbenos por WhatsApp.';
+                }
+            } catch (_) {
+                feedback.classList.add('form-feedback--error');
+                feedback.textContent = 'Error de conexión. Revisa tu internet o escríbenos por WhatsApp.';
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        });
     }
 }
